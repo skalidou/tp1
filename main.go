@@ -109,5 +109,29 @@ func Ft_profit(prices []int) int {
 	return maxProfit
 }
 
+func Ft_max_substring(s string) int {
+	charMap := make(map[rune]int)
+	maxLength := 0
+	start := 0
+
+	for end, char := range s {
+		// Si le caractère est déjà dans la map, déplacer le début de la fenêtre
+		if index, found := charMap[char]; found && index >= start {
+			start = index + 1 // Déplacer le début de la fenêtre après le caractère répété
+		}
+
+		// Mettre à jour l'index du caractère dans la map
+		charMap[char] = end
+
+		// Calculer la longueur de la fenêtre actuelle
+		currentLength := end - start + 1
+		if currentLength > maxLength {
+			maxLength = currentLength // Mettre à jour la longueur maximale
+		}
+	}
+
+	return maxLength
+}
+
 func main() {
 }
